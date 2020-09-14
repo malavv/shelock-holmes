@@ -1,0 +1,23 @@
+{
+    "manifest_version": 2,
+    "name": "Sherlock Holmes",
+    "description": "Home Checker on Centris.ca and Duproprio",
+    "version": "0.0.1",
+    "icons": {
+        "128": "logo-sherlock.png"
+    },
+    "permissions": ["declarativeContent", "storage", "tabs"],
+    "background": {
+        "page": "background.html"
+    },
+    "page_action": {
+        "default_popup": "popup.html"
+    },
+    "content_scripts": [
+        {
+            "matches": ["https://www.centris.ca/*"],
+            "js": ["content.js"]
+        }
+    ]    ,
+    "content_security_policy":"script-src 'self' https://www.gstatic.com/ https://*.firebaseio.com https://www.googleapis.com; object-src 'self'"
+}

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      button {
+        height: 30px;
+        width: 30px;
+        outline: none;
+      }
+      .flex { display: flex; }
+      .row { flex-direction: row; }
+      .col { flex-direction: column; }
+      .space-around { justify-content: space-around;}
+
+      div#mls {
+        font-size: 22px;
+        text-align: center;
+      }
+
+      div.types > div {
+        height: 20px;
+        width: 20px;
+        background-color: gainsboro;
+        box-shadow: 0px 0px;
+        cursor: pointer;
+      }
+
+      div.types > div[selected] {
+        height: 20px;
+        width: 20px;
+        background-color: gainsboro;
+        box-shadow: 2px 2px;
+      }
+
+      .vh-center {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="flex col space-around" style="height: 200px;">
+      <!-- ID -->
+      <div id="mls">123456</div>
+      <!-- Type -->
+      <div class="flex row space-around types">
+        <div id="T" class="vh-center">T</div>
+        <div id="M" class="vh-center">M</div>
+        <div id="L" class="vh-center">L</div>
+        <div id="U" class="vh-center">U</div>
+      </div>
+      <!-- Controls -->
+      <div class="flex row space-around" style="margin-top:20px">
+        <div id="status" class="vh-center" style="flex: 2;">OK</div>
+        <button id="setup" type="button" style="flex: 2;">Set Cfg</button>
+      </div>
+      <!-- Config -->
+      <div>
+        <textarea id="config" style="resize: none;"></textarea>
+      </div>
+      <div id="log"></div>
+    </div>
+
+    <!-- Extension Script -->
+    <script src="https://www.gstatic.com/firebasejs/7.20.0/firebase-app.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/7.20.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.20.0/firebase-firestore.js"></script>
+
+    <script src="popup.js"></script>
+  </body>
+</html>
