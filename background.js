@@ -78,6 +78,10 @@ function onDataSyncRequested(db, sendResp) {
         });
 }
 
+// Global Variables
+let app = null;
+let db = null;
+
 // When the extension is installed or upgraded.
 chrome.runtime.onInstalled.addListener(() => {
 
@@ -92,22 +96,21 @@ chrome.runtime.onInstalled.addListener(() => {
     });
     ensureDefaultExists('data', { "trash": [], "maybe": [], "likey": [] });
 
-    // Start synchronization
+    // Start Synchronization
     chrome.storage.sync.get(['cfg', 'data'], result => { 
 
         // Initialize app.
-        let app = firebase.initializeApp(result.cfg);
+        app = firebase.initializeApp(result.cfg);
 
         // Get DB Object
-        let db = firebase.firestore();
-
-        // Open Message Queue for Content Script
-        chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
-            console.log("Received %o from %o, frame", msg, sender.tab, sender.frameId);
-
-            onMsg(app, db, sendResponse, msg.type, msg.data);
-            return true;
-        });
+        db = firebase.firestore();
     });
+});
 
+// Open Message Queue for Content Script
+chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
+    console.log("Received %o from %o, frame", msg, sender.tab, sender.frameId);
+
+    onMsg(app, db, sendResponse, msg.type, msg.data);
+    return true;
 });
